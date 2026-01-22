@@ -234,19 +234,6 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
                 {profile.location}
               </span>
             )}
-            {profile.url && (
-              <a
-                href={profile.url.startsWith('http') ? profile.url : `https://${profile.url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#f5f5f5] rounded-full text-xs text-[#1d1d1f] hover:bg-[#e5e5e5] transition-colors"
-              >
-                <svg className="w-3.5 h-3.5 text-[#6e6e73]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" />
-                </svg>
-                {profile.url.replace(/^https?:\/\//, '').replace(/\/$/, '').slice(0, 20)}
-              </a>
-            )}
             {profile.email && (
               <a
                 href={`mailto:${profile.email}`}
@@ -260,8 +247,21 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
             )}
           </div>
 
-          {/* Social Links */}
-          <div className="mt-3">
+          {/* Social Links & Website */}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {profile.url && (
+              <a
+                href={profile.url.startsWith('http') ? profile.url : `https://${profile.url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#f5f5f5] rounded-full text-[#1d1d1f] text-sm font-medium hover:bg-[#e5e5e5] transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                </svg>
+                <span>Website</span>
+              </a>
+            )}
             <SocialLinks social={profile.social} />
           </div>
 
@@ -323,24 +323,22 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
                 <p className="text-[#1d1d1f] leading-relaxed mb-4">{profile.description}</p>
               )}
 
-              <SocialLinks social={profile.social} />
-
-              {profile.url && (
-                <a
-                  href={profile.url.startsWith('http') ? profile.url : `https://${profile.url}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-[#f5f5f5] rounded-full text-sm text-[#1d1d1f] hover:bg-[#e5e5e5] transition-colors"
-                >
-                  <svg className="w-4 h-4 text-[#6e6e73]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" />
-                  </svg>
-                  {profile.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                  <svg className="w-3.5 h-3.5 text-[#86868b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-              )}
+              <div className="flex flex-wrap gap-2">
+                {profile.url && (
+                  <a
+                    href={profile.url.startsWith('http') ? profile.url : `https://${profile.url}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#f5f5f5] rounded-full text-[#1d1d1f] text-sm font-medium hover:bg-[#e5e5e5] transition-colors"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    <span>Website</span>
+                  </a>
+                )}
+                <SocialLinks social={profile.social} />
+              </div>
             </div>
           </div>
 
