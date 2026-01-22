@@ -213,8 +213,8 @@ export default function FlickeringFooter() {
             className="h-full w-full"
             squareSize={2}
             gridGap={tablet ? 2 : 3}
-            color={theme === 'dark' ? '#9CA3AF' : '#6B7280'}
-            maxOpacity={theme === 'dark' ? 0.5 : 0.3}
+            color={theme === 'dark' ? '#d1d5db' : '#6B7280'}
+            maxOpacity={theme === 'dark' ? 0.6 : 0.3}
             flickerChance={0.1}
           />
         </div>

@@ -83,11 +83,11 @@ export default function Home() {
     <div className="relative min-h-[calc(100vh-56px)] flex flex-col items-center justify-center px-4 sm:px-6 py-8 sm:py-16 overflow-hidden">
       {/* Flickering Grid Background */}
       <FlickeringGrid
-        className="z-0 absolute inset-0 opacity-10"
+        className="z-0 absolute inset-0"
         squareSize={4}
         gridGap={6}
         color={theme === 'dark' ? '#ffffff' : '#000000'}
-        maxOpacity={theme === 'dark' ? 0.2 : 0.3}
+        maxOpacity={theme === 'dark' ? 0.15 : 0.1}
         flickerChance={0.1}
       />
 
