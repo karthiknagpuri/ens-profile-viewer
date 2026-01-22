@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { resolveEnsProfileEnhanced, normalizeName } from '../services/ensService'
 import ProfileCard from '../components/ProfileCard'
-import SearchBar from '../components/SearchBar'
 
 export default function Profile() {
   const { name } = useParams()
@@ -47,19 +46,17 @@ export default function Profile() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
-      {/* Back link and search */}
-      <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
+      {/* Back link */}
+      <div className="flex items-center mb-4 sm:mb-6">
         <Link
           to="/"
-          className="p-2 -ml-2 rounded-full hover:bg-[var(--color-surface-secondary)] transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
         >
-          <svg className="w-5 h-5 text-[var(--color-text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
+          Back to Home
         </Link>
-        <div className="flex-1">
-          <SearchBar compact initialValue={profile?.name || ''} />
-        </div>
       </div>
 
       {/* Loading state */}

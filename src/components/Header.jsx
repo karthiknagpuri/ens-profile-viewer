@@ -1,7 +1,8 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAccount, useConnect, useDisconnect, useEnsName, useEnsAvatar } from 'wagmi'
 import { useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { normalizeName, isValidEnsName } from '../services/ensService'
 
 // Theme Toggle Button
 function ThemeToggle() {
@@ -130,7 +131,7 @@ function ConnectWalletButton() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
             </svg>
-            Connect
+            Connect Wallet
           </>
         )}
       </button>
@@ -193,9 +194,48 @@ function ConnectWalletButton() {
   )
 }
 
+// Compact Search Bar for Header
+function HeaderSearchBar() {
+  const [input, setInput] = useState('')
+  const navigate = useNavigate()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const trimmed = input.trim()
+    if (!trimmed) return
+
+    const normalized = normalizeName(trimmed)
+    if (isValidEnsName(normalized)) {
+      navigate(`/profile/${encodeURIComponent(normalized)}`)
+      setInput('')
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="relative">
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Search ENS..."
+        className="w-32 sm:w-48 bg-[var(--color-surface-secondary)] border-0 rounded-full pl-9 pr-3 py-1.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+      />
+      <svg
+        className="w-4 h-4 text-[var(--color-text-tertiary)] absolute left-3 top-1/2 -translate-y-1/2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </form>
+  )
+}
+
 export default function Header() {
   const location = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isProfilePage = location.pathname.startsWith('/profile')
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-surface)]/80 backdrop-blur-xl border-b border-[var(--color-border)] transition-colors duration-300">
@@ -204,7 +244,7 @@ export default function Header() {
           <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[var(--color-accent)] flex items-center justify-center">
             <ENSLogo className="w-3.5 h-5 sm:w-4 sm:h-6 text-[var(--color-surface)]" />
           </div>
-          <span className="text-base sm:text-lg font-semibold text-[var(--color-text-primary)]">ENS Profile</span>
+          <span className="hidden sm:inline text-base sm:text-lg font-semibold text-[var(--color-text-primary)]">ENS Profile</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -218,7 +258,7 @@ export default function Header() {
                   : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)]'
               }`}
             >
-              Search
+              Home
             </Link>
             <Link
               to="/graph"
@@ -231,13 +271,22 @@ export default function Header() {
               Network
             </Link>
           </nav>
+          {isProfilePage && (
+            <>
+              <div className="w-px h-6 bg-[var(--color-border)]" />
+              <HeaderSearchBar />
+            </>
+          )}
           <div className="w-px h-6 bg-[var(--color-border)]" />
-          <ThemeToggle />
-          <ConnectWalletButton />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <ConnectWalletButton />
+          </div>
         </div>
 
-        {/* Mobile: Theme toggle and Hamburger */}
+        {/* Mobile: Search bar (on profile page), Theme toggle and Hamburger */}
         <div className="flex sm:hidden items-center gap-2">
+          {isProfilePage && <HeaderSearchBar />}
           <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -277,9 +326,9 @@ export default function Header() {
               >
                 <div className="flex items-center gap-3">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
-                  Search
+                  Home
                 </div>
               </Link>
               <Link
