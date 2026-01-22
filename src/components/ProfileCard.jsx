@@ -199,22 +199,22 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
       {/* Main Profile Card - Twitter Style for Mobile */}
       <MatrixCardEffect className="bg-white rounded-2xl border border-[#e5e5e5] overflow-hidden">
         {/* Banner - Mobile only */}
-        <div className="sm:hidden h-24 bg-gradient-to-r from-[#627EEA] to-[#8B5CF6] relative">
-          <div className="absolute -bottom-10 left-4">
-            <div className="ring-4 ring-white rounded-full">
+        <div className="sm:hidden h-28 bg-gradient-to-r from-[#627EEA] to-[#8B5CF6] relative">
+          <div className="absolute -bottom-8 left-4">
+            <div className="ring-4 ring-white rounded-full overflow-hidden">
               <Avatar
                 src={profile.avatar}
                 address={profile.address}
                 name={profile.displayName || profile.name}
                 size="xl"
-                className="w-20 h-20"
+                className="w-16 h-16"
               />
             </div>
           </div>
         </div>
 
         {/* Mobile: Content below banner */}
-        <div className="sm:hidden pt-12 px-4 pb-4">
+        <div className="sm:hidden pt-10 px-4 pb-4">
           <h1 className="text-xl font-bold text-[#1d1d1f]">{profile.name}</h1>
           {profile.displayName && profile.displayName !== profile.name && (
             <p className="text-sm text-[#6e6e73]">{profile.displayName}</p>
@@ -228,10 +228,10 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
           )}
 
           {/* Location & Website row */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-[#6e6e73]">
+          <div className="flex flex-wrap items-center gap-2 mt-3">
             {profile.location && (
-              <span className="inline-flex items-center gap-1 text-xs">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#f5f5f5] rounded-full text-xs text-[#1d1d1f]">
+                <svg className="w-3.5 h-3.5 text-[#6e6e73]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 </svg>
                 {profile.location}
@@ -242,17 +242,20 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
                 href={profile.url.startsWith('http') ? profile.url : `https://${profile.url}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-[#0071e3]"
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#f5f5f5] rounded-full text-xs text-[#1d1d1f] hover:bg-[#e5e5e5] transition-colors"
               >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-3.5 h-3.5 text-[#6e6e73]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" />
                 </svg>
-                {profile.url.replace(/^https?:\/\//, '').replace(/\/$/, '').slice(0, 25)}
+                {profile.url.replace(/^https?:\/\//, '').replace(/\/$/, '').slice(0, 20)}
               </a>
             )}
             {profile.email && (
-              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-1 text-xs text-[#0071e3]">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <a
+                href={`mailto:${profile.email}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#f5f5f5] rounded-full text-xs text-[#1d1d1f] hover:bg-[#e5e5e5] transition-colors"
+              >
+                <svg className="w-3.5 h-3.5 text-[#6e6e73]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 Email
@@ -330,10 +333,13 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
                   href={profile.url.startsWith('http') ? profile.url : `https://${profile.url}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-3 text-[#0071e3] hover:underline text-sm"
+                  className="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-[#f5f5f5] rounded-full text-sm text-[#1d1d1f] hover:bg-[#e5e5e5] transition-colors"
                 >
+                  <svg className="w-4 h-4 text-[#6e6e73]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" />
+                  </svg>
                   {profile.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-3.5 h-3.5 text-[#86868b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
