@@ -473,7 +473,7 @@ export default function Graph() {
         <svg ref={svgRef} className="w-full h-full" />
 
         {/* Floating action buttons - left middle on desktop, bottom on mobile */}
-        <div className="absolute left-2 sm:left-4 bottom-20 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col gap-2 sm:gap-3">
+        <div className="absolute left-2 sm:left-4 bottom-28 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col gap-2 sm:gap-3">
           {addMode ? (
             <div className="bg-white rounded-xl border border-[#e5e5e5] p-2 sm:p-3 shadow-lg">
               <p className="text-[10px] sm:text-xs text-[#6e6e73] mb-1 sm:mb-2">
@@ -517,7 +517,7 @@ export default function Graph() {
         </div>
 
         {/* Stats - bottom center */}
-        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4 bg-white/90 backdrop-blur-sm border border-[#e5e5e5] rounded-full px-3 sm:px-5 py-1.5 sm:py-2 shadow-lg">
+        <div className="absolute bottom-28 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4 bg-white/90 backdrop-blur-sm border border-[#e5e5e5] rounded-full px-3 sm:px-5 py-1.5 sm:py-2 shadow-lg">
           <div className="flex items-center gap-1 sm:gap-2">
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#627EEA]" />
             <span className="text-xs sm:text-sm font-medium text-[#1d1d1f]">{nodes.length}</span>
