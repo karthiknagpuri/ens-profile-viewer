@@ -472,22 +472,22 @@ export default function Graph() {
       <div ref={containerRef} className="flex-1 relative bg-[#fafafa] overflow-hidden">
         <svg ref={svgRef} className="w-full h-full" />
 
-        {/* Floating action buttons - left middle on desktop, bottom on mobile */}
-        <div className="absolute left-2 sm:left-4 bottom-28 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col gap-2 sm:gap-3">
+        {/* Desktop: Floating action buttons - left middle */}
+        <div className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 flex-col gap-3">
           {addMode ? (
-            <div className="bg-white rounded-xl border border-[#e5e5e5] p-2 sm:p-3 shadow-lg">
-              <p className="text-[10px] sm:text-xs text-[#6e6e73] mb-1 sm:mb-2">
+            <div className="bg-white rounded-xl border border-[#e5e5e5] p-3 shadow-lg">
+              <p className="text-xs text-[#6e6e73] mb-2">
                 {sourceNode ? `Select target` : 'Select source'}
               </p>
               {sourceNode && (
-                <p className="text-[10px] sm:text-xs font-medium text-[#1d1d1f] mb-1 sm:mb-2">{sourceNode.ens_name}</p>
+                <p className="text-xs font-medium text-[#1d1d1f] mb-2">{sourceNode.ens_name}</p>
               )}
               <button
                 onClick={() => {
                   setAddMode(false)
                   setSourceNode(null)
                 }}
-                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 bg-[#f5f5f5] text-[#1d1d1f] rounded-lg text-[10px] sm:text-xs font-medium hover:bg-[#e5e5e5] active:scale-95 transition-all"
+                className="w-full px-3 py-2 bg-[#f5f5f5] text-[#1d1d1f] rounded-lg text-xs font-medium hover:bg-[#e5e5e5] active:scale-95 transition-all"
               >
                 Cancel
               </button>
@@ -496,39 +496,105 @@ export default function Graph() {
             <>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-white border border-[#e5e5e5] rounded-full shadow-lg hover:bg-[#f5f5f5] active:scale-95 transition-all"
+                className="flex items-center gap-2 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full shadow-lg hover:bg-[#f5f5f5] active:scale-95 transition-all"
               >
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#1d1d1f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 text-[#1d1d1f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
-                <span className="text-xs sm:text-sm font-medium text-[#1d1d1f]">Add Node</span>
+                <span className="text-sm font-medium text-[#1d1d1f]">Add Node</span>
               </button>
               <button
                 onClick={() => setAddMode(true)}
-                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-[#1d1d1f] rounded-full shadow-lg hover:bg-black active:scale-95 transition-all"
+                className="flex items-center gap-2 px-4 py-3 bg-[#1d1d1f] rounded-full shadow-lg hover:bg-black active:scale-95 transition-all"
               >
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
-                <span className="text-xs sm:text-sm font-medium text-white">Connect</span>
+                <span className="text-sm font-medium text-white">Connect</span>
               </button>
             </>
           )}
         </div>
 
-        {/* Stats - bottom center */}
-        <div className="absolute bottom-28 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4 bg-white/90 backdrop-blur-sm border border-[#e5e5e5] rounded-full px-3 sm:px-5 py-1.5 sm:py-2 shadow-lg">
-          <div className="flex items-center gap-1 sm:gap-2">
-            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#627EEA]" />
-            <span className="text-xs sm:text-sm font-medium text-[#1d1d1f]">{nodes.length}</span>
-            <span className="text-[10px] sm:text-xs text-[#6e6e73]">nodes</span>
+        {/* Desktop: Stats - bottom center */}
+        <div className="hidden sm:flex absolute bottom-4 left-1/2 -translate-x-1/2 items-center gap-4 bg-white/90 backdrop-blur-sm border border-[#e5e5e5] rounded-full px-5 py-2 shadow-lg">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#627EEA]" />
+            <span className="text-sm font-medium text-[#1d1d1f]">{nodes.length}</span>
+            <span className="text-xs text-[#6e6e73]">nodes</span>
           </div>
-          <div className="w-px h-3 sm:h-4 bg-[#e5e5e5]" />
-          <div className="flex items-center gap-1 sm:gap-2">
-            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#34C759]" />
-            <span className="text-xs sm:text-sm font-medium text-[#1d1d1f]">{edges.length}</span>
-            <span className="text-[10px] sm:text-xs text-[#6e6e73]">links</span>
+          <div className="w-px h-4 bg-[#e5e5e5]" />
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#34C759]" />
+            <span className="text-sm font-medium text-[#1d1d1f]">{edges.length}</span>
+            <span className="text-xs text-[#6e6e73]">links</span>
           </div>
+        </div>
+
+        {/* Mobile: Combined stats and actions bar */}
+        <div className="sm:hidden absolute bottom-20 left-3 right-3">
+          {addMode ? (
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl border border-[#e5e5e5] p-3 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-[#6e6e73]">
+                    {sourceNode ? `Select target node` : 'Select source node'}
+                  </p>
+                  {sourceNode && (
+                    <p className="text-sm font-medium text-[#1d1d1f]">{sourceNode.ens_name}</p>
+                  )}
+                </div>
+                <button
+                  onClick={() => {
+                    setAddMode(false)
+                    setSourceNode(null)
+                  }}
+                  className="px-4 py-2 bg-[#f5f5f5] text-[#1d1d1f] rounded-full text-xs font-medium active:scale-95 transition-all"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-2xl border border-[#e5e5e5] px-3 py-2 shadow-lg">
+              {/* Stats */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#627EEA]" />
+                  <span className="text-xs font-medium text-[#1d1d1f]">{nodes.length}</span>
+                  <span className="text-[10px] text-[#6e6e73]">nodes</span>
+                </div>
+                <div className="w-px h-3 bg-[#e5e5e5]" />
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#34C759]" />
+                  <span className="text-xs font-medium text-[#1d1d1f]">{edges.length}</span>
+                  <span className="text-[10px] text-[#6e6e73]">links</span>
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowAddModal(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#f5f5f5] rounded-full active:scale-95 transition-all"
+                >
+                  <svg className="w-3.5 h-3.5 text-[#1d1d1f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span className="text-xs font-medium text-[#1d1d1f]">Add</span>
+                </button>
+                <button
+                  onClick={() => setAddMode(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#1d1d1f] rounded-full active:scale-95 transition-all"
+                >
+                  <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                  <span className="text-xs font-medium text-white">Connect</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Node tooltip */}
