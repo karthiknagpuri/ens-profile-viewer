@@ -3,10 +3,24 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+// Create client only if credentials are available
+export const supabase = supabaseUrl && supabaseKey
+  ? createClient(supabaseUrl, supabaseKey)
+  : null
+
+// Helper to check if Supabase is configured
+const checkSupabase = () => {
+  if (!supabase) {
+    console.warn('Supabase not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.')
+    return false
+  }
+  return true
+}
 
 // Node operations
 export async function getNodes() {
+  if (!checkSupabase()) return []
+
   const { data, error } = await supabase
     .from('ens_nodes')
     .select('*')
@@ -17,6 +31,8 @@ export async function getNodes() {
 }
 
 export async function createNode(ensName, ethAddress = null, cachedProfile = null) {
+  if (!checkSupabase()) return null
+
   const { data, error } = await supabase
     .from('ens_nodes')
     .upsert({
@@ -33,6 +49,8 @@ export async function createNode(ensName, ethAddress = null, cachedProfile = nul
 }
 
 export async function getNodeByName(ensName) {
+  if (!checkSupabase()) return null
+
   const { data, error } = await supabase
     .from('ens_nodes')
     .select('*')
@@ -45,6 +63,8 @@ export async function getNodeByName(ensName) {
 
 // Relationship operations
 export async function getRelationships() {
+  if (!checkSupabase()) return []
+
   const { data, error } = await supabase
     .from('relationships')
     .select(`
@@ -62,6 +82,8 @@ export async function getRelationships() {
 }
 
 export async function createRelationship(sourceId, targetId, relationshipType = 'connection') {
+  if (!checkSupabase()) return null
+
   const { data, error } = await supabase
     .from('relationships')
     .insert({
@@ -82,6 +104,8 @@ export async function createRelationship(sourceId, targetId, relationshipType = 
 }
 
 export async function deleteRelationship(id) {
+  if (!checkSupabase()) return
+
   const { error } = await supabase
     .from('relationships')
     .delete()
@@ -112,6 +136,8 @@ export async function getGraphData() {
 
 // Helper to create edge by ENS names
 export async function createEdgeByNames(sourceName, targetName, relationshipType = 'connection') {
+  if (!checkSupabase()) return null
+
   // Get or create source node
   let sourceNode = await getNodeByName(sourceName)
   if (!sourceNode) {
