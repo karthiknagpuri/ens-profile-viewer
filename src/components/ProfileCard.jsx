@@ -198,10 +198,10 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
 
       {/* Main Profile Card - Twitter Style for Mobile */}
       <MatrixCardEffect className="bg-white rounded-2xl border border-[#e5e5e5] overflow-hidden">
-        {/* Banner - Mobile only */}
-        <div className="sm:hidden h-28 bg-gradient-to-r from-[#627EEA] to-[#8B5CF6] relative">
-          <div className="absolute -bottom-8 left-4">
-            <div className="ring-4 ring-white rounded-full overflow-hidden">
+        {/* Mobile: Horizontal layout with avatar on left */}
+        <div className="sm:hidden p-4">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0">
               <Avatar
                 src={profile.avatar}
                 address={profile.address}
@@ -210,22 +210,19 @@ export default function ProfileCard({ profile, onProfileUpdate }) {
                 className="w-16 h-16"
               />
             </div>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg font-bold text-[#1d1d1f]">{profile.name}</h1>
+              {profile.displayName && profile.displayName !== profile.name && (
+                <p className="text-sm text-[#6e6e73]">{profile.displayName}</p>
+              )}
+              {/* Description */}
+              {profile.description && (
+                <p className="text-sm text-[#1d1d1f] leading-relaxed mt-2">
+                  {profile.description}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-
-        {/* Mobile: Content below banner */}
-        <div className="sm:hidden pt-10 px-4 pb-4">
-          <h1 className="text-xl font-bold text-[#1d1d1f]">{profile.name}</h1>
-          {profile.displayName && profile.displayName !== profile.name && (
-            <p className="text-sm text-[#6e6e73]">{profile.displayName}</p>
-          )}
-
-          {/* Description */}
-          {profile.description && (
-            <p className="text-sm text-[#1d1d1f] leading-relaxed mt-3">
-              {profile.description}
-            </p>
-          )}
 
           {/* Location & Website row */}
           <div className="flex flex-wrap items-center gap-2 mt-3">
