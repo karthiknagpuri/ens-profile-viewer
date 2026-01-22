@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
-import BottomNav from './components/BottomNav'
+import LumaBar from './components/ui/futuristic-nav'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Graph from './pages/Graph'
@@ -25,7 +25,7 @@ export default function App() {
       {isHomePage && <FeaturesSection />}
       {isHomePage && <NetworkFeatureSection />}
       <FlickeringFooter />
-      <BottomNav />
+      <LumaBar />
     </div>
   )
 }
