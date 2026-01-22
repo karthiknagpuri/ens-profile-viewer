@@ -532,7 +532,7 @@ export default function Graph() {
         </div>
 
         {/* Mobile: Combined stats and actions bar */}
-        <div className="sm:hidden absolute bottom-20 left-3 right-3">
+        <div className="sm:hidden absolute bottom-24 left-3 right-3">
           {addMode ? (
             <div className="bg-white/95 backdrop-blur-sm rounded-2xl border border-[#e5e5e5] p-3 shadow-lg">
               <div className="flex items-center justify-between">
