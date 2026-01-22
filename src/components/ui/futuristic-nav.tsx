@@ -57,13 +57,13 @@ const LumaBar = () => {
   return (
     <>
       {/* Bottom Navigation - Mobile Only */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 sm:hidden">
-        <div className="relative flex items-center justify-center gap-2 bg-white/70 dark:bg-black/70 backdrop-blur-2xl rounded-full px-4 py-2 shadow-xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
+      <div className="fixed bottom-4 left-3 right-3 z-50 sm:hidden">
+        <div className="relative flex items-center justify-around bg-white/90 dark:bg-gray-100/95 backdrop-blur-xl rounded-2xl px-2 py-1.5 shadow-lg border border-gray-200/80 overflow-hidden">
 
           {/* Active Indicator Glow */}
           <motion.div
             layoutId="active-indicator"
-            className="absolute w-14 h-14 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-2xl opacity-60"
+            className="absolute w-16 h-10 bg-gradient-to-r from-blue-200 to-purple-200 rounded-xl blur-xl opacity-70"
             animate={{
               left: `calc(${active * (100 / items.length)}% + ${100 / items.length / 2}%)`,
               translateX: "-50%",
@@ -76,21 +76,21 @@ const LumaBar = () => {
             const isWallet = item.action === "wallet";
 
             return (
-              <motion.div key={item.id} className="relative flex flex-col items-center group">
+              <motion.div key={item.id} className="relative flex flex-col items-center group flex-1">
                 {/* Button */}
                 <motion.button
                   onClick={() => handleClick(item, index)}
-                  whileTap={{ scale: 0.9 }}
+                  whileTap={{ scale: 0.95 }}
                   animate={{
-                    scale: isActive ? 1.15 : 1,
+                    scale: isActive ? 1.05 : 1,
                   }}
                   disabled={isPending}
-                  className={`flex flex-col items-center justify-center w-16 h-14 rounded-2xl relative z-10 transition-colors ${
+                  className={`flex flex-col items-center justify-center w-full py-2 rounded-xl relative z-10 transition-colors ${
                     isActive
-                      ? "text-blue-500 dark:text-blue-400"
+                      ? "text-blue-600 bg-blue-50/80"
                       : isWallet && isConnected
-                        ? "text-green-500 dark:text-green-400"
-                        : "text-gray-500 dark:text-gray-400"
+                        ? "text-green-600"
+                        : "text-gray-500"
                   }`}
                 >
                   {isPending && isWallet ? (
@@ -108,14 +108,6 @@ const LumaBar = () => {
                   <span className="text-[10px] font-medium mt-0.5">{item.label}</span>
                 </motion.button>
 
-                {/* Active dot indicator */}
-                {isActive && (
-                  <motion.div
-                    layoutId="active-dot"
-                    className="absolute -bottom-0.5 w-1 h-1 bg-blue-500 rounded-full"
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
               </motion.div>
             );
           })}
@@ -126,7 +118,7 @@ const LumaBar = () => {
       {showConnectors && (
         <>
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 sm:hidden"
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 sm:hidden"
             onClick={() => setShowConnectors(false)}
           />
           <motion.div
@@ -134,14 +126,14 @@ const LumaBar = () => {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 rounded-t-3xl z-50 sm:hidden"
+            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 sm:hidden shadow-2xl"
           >
-            <div className="w-12 h-1 bg-gray-300 dark:bg-gray-700 rounded-full mx-auto mt-3" />
+            <div className="w-12 h-1 bg-gray-200 rounded-full mx-auto mt-3" />
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Connect Wallet
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+              <p className="text-sm text-gray-500 mb-6">
                 Choose a wallet to connect
               </p>
               <div className="space-y-3">
@@ -152,9 +144,9 @@ const LumaBar = () => {
                       connect({ connector });
                       setShowConnectors(false);
                     }}
-                    className="flex items-center gap-4 w-full p-4 rounded-2xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="flex items-center gap-4 w-full p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-white dark:bg-gray-900 flex items-center justify-center shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm border border-gray-100">
                       {connector.name === 'MetaMask' && (
                         <svg className="w-6 h-6" viewBox="0 0 35 33" fill="none">
                           <path d="M32.96 1L19.47 11.13l2.5-5.93L32.96 1z" fill="#E2761B" stroke="#E2761B" strokeLinecap="round" strokeLinejoin="round"/>
@@ -171,7 +163,7 @@ const LumaBar = () => {
                         <Wallet className="w-6 h-6 text-gray-500" />
                       )}
                     </div>
-                    <span className="font-medium text-gray-900 dark:text-white">
+                    <span className="font-medium text-gray-900">
                       {connector.name}
                     </span>
                   </button>
@@ -179,7 +171,7 @@ const LumaBar = () => {
               </div>
               <button
                 onClick={() => setShowConnectors(false)}
-                className="w-full mt-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                className="w-full mt-4 py-3 text-sm font-medium text-gray-400 hover:text-gray-600 transition-colors"
               >
                 Cancel
               </button>
