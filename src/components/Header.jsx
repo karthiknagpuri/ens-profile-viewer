@@ -234,7 +234,6 @@ function HeaderSearchBar() {
 
 export default function Header() {
   const location = useLocation()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isProfilePage = location.pathname.startsWith('/profile')
 
   return (
@@ -284,77 +283,12 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile: Search bar (on profile page), Theme toggle and Hamburger */}
+        {/* Mobile: Search bar (on profile page) and Theme toggle */}
         <div className="flex sm:hidden items-center gap-2">
           {isProfilePage && <HeaderSearchBar />}
           <ThemeToggle />
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg hover:bg-[var(--color-surface-secondary)] transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <svg className="w-6 h-6 text-[var(--color-text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6 text-[var(--color-text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/20 z-40 sm:hidden"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className="absolute top-full left-0 right-0 bg-[var(--color-surface)] border-b border-[var(--color-border)] shadow-lg z-50 sm:hidden">
-            <nav className="flex flex-col p-4 gap-2">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                  location.pathname === '/'
-                    ? 'bg-[var(--color-accent)] text-[var(--color-surface)]'
-                    : 'text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)]'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
-                  Home
-                </div>
-              </Link>
-              <Link
-                to="/graph"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                  location.pathname === '/graph'
-                    ? 'bg-[var(--color-accent)] text-[var(--color-surface)]'
-                    : 'text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)]'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                  </svg>
-                  Network
-                </div>
-              </Link>
-              <div className="border-t border-[var(--color-border)] my-2" />
-              <div className="px-4 py-2">
-                <ConnectWalletButton />
-              </div>
-            </nav>
-          </div>
-        </>
-      )}
     </header>
   )
 }

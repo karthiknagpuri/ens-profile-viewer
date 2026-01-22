@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
+import BottomNav from './components/BottomNav'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Graph from './pages/Graph'
@@ -14,7 +15,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] flex flex-col transition-colors duration-300 overflow-x-hidden">
       <Header />
-      <main className="flex-1 overflow-x-hidden">
+      <main className="flex-1 overflow-x-hidden pb-24 sm:pb-0">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile/:name" element={<Profile />} />
@@ -24,6 +25,7 @@ export default function App() {
       {isHomePage && <FeaturesSection />}
       {isHomePage && <NetworkFeatureSection />}
       <FlickeringFooter />
+      <BottomNav />
     </div>
   )
 }
